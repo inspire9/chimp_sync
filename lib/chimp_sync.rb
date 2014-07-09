@@ -1,0 +1,3 @@
+module ChimpSync
+  #
+end
