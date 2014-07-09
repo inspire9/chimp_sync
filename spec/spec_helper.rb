@@ -9,3 +9,7 @@ require 'chimp_sync'
 Combustion.initialize! :action_controller, :active_record
 
 require 'rspec/rails'
+
+RSpec.configure do |config|
+  config.use_transactional_fixtures = true
+end

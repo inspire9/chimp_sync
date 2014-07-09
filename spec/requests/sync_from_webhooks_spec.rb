@@ -4,6 +4,18 @@ describe 'Sync from Webhooks', type: :request do
   let(:list_id) { 'a6b5da1054' }
   let(:email)   { 'pat@test.com' }
 
+  before :each do
+    ChimpSync.reset
+    ChimpSync.sync :test_list do |list|
+      list.api_key = 'my-api-key'
+      list.id      = list_id
+
+      list.update_local = lambda { |email, subscribed|
+        User.find_by(email: email).update_attributes(subscribed: subscribed)
+      }
+    end
+  end
+
   it 'marks users as subscribed when MailChimp sends a subscribe hook' do
     user = User.create! email: email, subscribed: false
 
@@ -41,5 +53,14 @@ describe 'Sync from Webhooks', type: :request do
     expect(user.reload).to_not be_subscribed
   end
 
-  # * email_address_change
+  it 'marks users as unsubscribed when MailChimp sends a change hook' do
+    user = User.create! email: email, subscribed: true
+
+    post '/panthoot/hooks', 'type' => 'upemail',
+      'fired_at' => Time.zone.now.to_s(:db), 'data[list_id]' => list_id,
+      'data[new_id]' => '51da8c3259',
+      'data[new_email]' => 'api+new@mailchimp.com', 'data[old_email]' => email
+
+    expect(user.reload).to_not be_subscribed
+  end
 end
