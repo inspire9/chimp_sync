@@ -4,9 +4,9 @@ Gem::Specification.new do |spec|
   spec.version       = '0.0.1'
   spec.authors       = ['Pat Allan']
   spec.email         = ['pat@freelancing-gods.com']
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ''
+  spec.summary       = %q{Keep MailChimp list subscriptions synchronised.}
+  spec.description   = %q{Synchronise your MailChimp list subscription details with your own data.}
+  spec.homepage      = 'https://github.com/inspire9/chimp_sync'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
