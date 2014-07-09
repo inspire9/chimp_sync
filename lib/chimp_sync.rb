@@ -19,39 +19,20 @@ module ChimpSync
 end
 
 require 'chimp_sync/list'
+require 'chimp_sync/subscriber'
 
-ActiveSupport::Notifications.subscribe('subscribe.panthoot') do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  data  = event.payload[:subscribe]
-
-  ChimpSync.lists_for(data.list_id).each do |list|
-    list.update_local.call data.email, true
-  end
+ChimpSync::Subscriber.add :subscribe do |list, data|
+  list.update_local.call data.email, true
 end
 
-ActiveSupport::Notifications.subscribe('unsubscribe.panthoot') do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  data  = event.payload[:unsubscribe]
-
-  ChimpSync.lists_for(data.list_id).each do |list|
-    list.update_local.call data.email, false
-  end
+ChimpSync::Subscriber.add :unsubscribe do |list, data|
+  list.update_local.call data.email, false
 end
 
-ActiveSupport::Notifications.subscribe('email_cleaned.panthoot') do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  data  = event.payload[:email_cleaned]
-
-  ChimpSync.lists_for(data.list_id).each do |list|
-    list.update_local.call data.email, false
-  end
+ChimpSync::Subscriber.add :email_cleaned do |list, data|
+  list.update_local.call data.email, false
 end
 
-ActiveSupport::Notifications.subscribe('email_address_change.panthoot') do |*args|
-  event = ActiveSupport::Notifications::Event.new(*args)
-  data  = event.payload[:email_address_change]
-
-  ChimpSync.lists_for(data.list_id).each do |list|
-    list.update_local.call data.old_email, false
-  end
+ChimpSync::Subscriber.add :email_address_change do |list, data|
+  list.update_local.call data.old_email, false
 end
