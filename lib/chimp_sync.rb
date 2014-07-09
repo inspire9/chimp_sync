@@ -20,19 +20,3 @@ end
 
 require 'chimp_sync/list'
 require 'chimp_sync/subscriber'
-
-ChimpSync::Subscriber.add :subscribe do |list, data|
-  list.update_local.call data.email, true
-end
-
-ChimpSync::Subscriber.add :unsubscribe do |list, data|
-  list.update_local.call data.email, false
-end
-
-ChimpSync::Subscriber.add :email_cleaned do |list, data|
-  list.update_local.call data.email, false
-end
-
-ChimpSync::Subscriber.add :email_address_change do |list, data|
-  list.update_local.call data.old_email, false
-end
