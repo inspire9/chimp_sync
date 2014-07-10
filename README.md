@@ -47,4 +47,4 @@ ChimpSync::Update.subscribed :my_label, user.email, user.subscribed
 
 ## Credits
 
-Copyright (c) 2014, ChimpSync is developed and maintained by Pat Allan and "Inspire9":http://inspire9.com, and is released under the open MIT Licence.
+Copyright (c) 2014, ChimpSync is developed and maintained by Pat Allan and [Inspire9](http://inspire9.com), and is released under the open MIT Licence.
