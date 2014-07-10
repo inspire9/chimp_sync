@@ -34,7 +34,7 @@ end
 You'll also want to pass back local changes to MailChimp:
 
 ```ruby
-ChimpSync.update :my_label, user.email, user.subscribed
+ChimpSync::Update.subscribed :my_label, user.email, user.subscribed
 ```
 
 ## Contributing

@@ -1,3 +1,4 @@
+require 'gibbon'
 require 'panthoot'
 
 module ChimpSync
@@ -20,3 +21,4 @@ end
 
 require 'chimp_sync/list'
 require 'chimp_sync/subscriber'
+require 'chimp_sync/update'
