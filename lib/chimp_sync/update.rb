@@ -5,7 +5,7 @@ class ChimpSync::Update
 
     if subscribed
       gibbon.lists.subscribe id: list.id, email: {email: email},
-        double_optin: false, send_welcome: true
+        double_optin: false, send_welcome: false
     else
       gibbon.lists.unsubscribe id: list.id, email: {email: email}
     end
